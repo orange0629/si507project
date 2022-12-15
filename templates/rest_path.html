@@ -1,0 +1,79 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+	<style>
+		table, th, td {
+		border: 1px solid black;
+		}
+	</style>
+
+	<h1>Hello! Here we can calculate the shortest path between 2 restaurants.</h1>
+
+	<form action="/path_form" method="POST">
+		<p>
+			What's your first restaurant id? <input name="node1" type="text"/> <br/>
+			What's your second restaurant id? <input name="node2" type="text"/> <br/>
+
+			<input type="submit" value="Submit"/>
+		</p>
+	
+	</form>
+
+	<h1>Here is the shortest path from Restaurant {{init_node.id}} to {% if path != []%}{{path[-1][0].id}}{% else %}{{init_node.id}}{% endif %}:</h1>
+	<h2>
+	{{init_node.id}}
+	{% for step in path %}
+	&rarr;{{step[0].id}}
+	{% endfor %}
+	</h2>
+
+	<h1>Detailed relationship is shown below:</h1>
+
+	<table>
+		<tr>
+			<th style="text-align: center"><h3>Photo</h3></th>
+			<th style="text-align: center"><h3>Restaurants</h3></th>
+		</tr>
+		<tr>
+			<td><img src={{init_node.img_url}} alt={{init_node.Name}} width="250" height="160"> </td>
+			<td>
+				<h3>{{init_node.id}}. <a href={{init_node.url}}>{{init_node.Name}}</a></h3>
+				Rating: {{init_node.Rating}}<br/>
+				Reviews: {{init_node.Review_num}}<br/>
+				Neighborhood: {{init_node.Neighborhood}}<br/>
+				Tags:
+				{% for tag in init_node.tags%}
+					<span style="border:1px grey solid; background-color: LightGreen;">{{ tag }}</span>
+				{% endfor %}
+			</td>
+		</tr>
+
+
+	{% for step in path %}
+		<tr>
+			<td colspan="2" style="text-align: center">
+				<h1>Shared tags: 
+					{% for tag in step[1]%}
+					<span style="border:1px grey solid; background-color: LightGreen;">{{ tag }}</span>
+					{% endfor %}
+				</h1></td>
+		</tr>
+
+		<tr>
+			<td><a href={{step[0].url}}><img src={{step[0].img_url}} alt={{step[0].Name}} width="250" height="160"></a></td>
+			<td>
+				<h3>{{step[0].id}}. <a href={{step[0].url}}>{{step[0].Name}}</a></h3>
+				Rating: {{step[0].Rating}}<br/>
+				Reviews: {{step[0].Review_num}}<br/>
+				Neighborhood: {{step[0].Neighborhood}}<br/>
+				Tags:
+				{% for tag in step[0].tags%}
+					<span style="border:1px grey solid; background-color: LightGreen;">{{ tag }}</span>
+				{% endfor %}
+			</td>
+		</tr>
+	{% endfor %}
+
+	</table>
+
+{% endblock %}
