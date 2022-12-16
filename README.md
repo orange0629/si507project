@@ -4,7 +4,7 @@
 
 If you only want to see the demo, you can just run Step3_Demo.py under Python environment. Then, you can go to http://localhost:5000/ to see the interactive interface. All the supported functions are listed on the left. After you click these options, you will be provided detailed instructions on how to interact. You can type into words and click "submit" to see its reaction.
 
-If you want to run the whole process, you should run all code blocks in Step1_Data_Caching.ipynb and Step2_Data_Structuring.ipynb. Since the caching of websites are too large, I didn't upload them into github. So you need approximately 10 minutes to run Step1 for the first time (if you cached it before, it will automatically skip the process). Step2 is used for processing the crawled data, turn them into graph structure and store into json file, and it will take about 3 seconds to finish all the job.
+If you want to run the whole process, you should run all code blocks in Step1_Data_Caching.ipynb and Step2_Data_Structuring.ipynb. So you need approximately 10 minutes to run Step1 (without cache files) for the first time (if you cached it before, it will only take a second). Step2 is used for processing the crawled data, turn them into graph structure and store into json file, and it will take about 3 seconds to finish all the job.
 
 Required packages:
 
