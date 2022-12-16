@@ -27,9 +27,12 @@
       {% block sidebar %}
       <ul class="sidebar-nav">
           <li><a href="/">Home</a></li>
-          <li><a href="/path/0/0">Path Between Restaurants</a></li>
-          <li><a href="">All authors</a></li>
+          <li><a href="/neighbor">Neighbors of Restaurants</a></li>
+          <li><a href="/path">Path Between Restaurants</a></li>
+          <li><a href="/similar">Personalized recommendation</a></li>
+          <li><a href="/stat">Statistics of Cuisine</a></li>
       </ul>
+      {% block filter %}{% endblock %}
      {% endblock %}
       </div>
       <div class="col-sm-10 ">

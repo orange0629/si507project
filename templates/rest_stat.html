@@ -1,0 +1,43 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+	<style>
+		table, th, td {
+		border: 1px solid black;
+		}
+	</style>
+
+	<h1>Hello! Here we can show the statistics based on the Cuisine you input.</h1>
+
+	<form action="/stat" method="POST">
+		<p>
+			Please input a cuisine. E.g: "Chinese"<br/>
+			<input name="cuisine" type="text"/> <br/>
+			<input type="submit" value="Submit"/>
+		</p>
+	
+	</form>
+
+	{% if fig_list == []%}
+
+	{% elif cuisine == [] %}
+
+	No result for {{cuisine}}
+	
+	{% else %}
+	
+	<h1>Distribution of Neighborhood in all {{cuisine}} restaurants.</h1>
+		{{fig_list[0] | safe}}
+	
+	<h1>Distribution of Tags in all {{cuisine}} restaurants.</h1>
+		{{fig_list[1] | safe}}
+	
+	<h1>Distribution of Ratings in all {{cuisine}} restaurants.</h1>
+		{{fig_list[2] | safe}}
+	
+	<h1>Distribution of Price Level in all {{cuisine}} restaurants.</h1>
+		{{fig_list[3] | safe}}
+	
+	
+	{% endif %}
+{% endblock %}

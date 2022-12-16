@@ -1,0 +1,64 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+	<style>
+		table, th, td {
+		border: 1px solid black;
+		}
+	</style>
+
+	<h1>Hello! Here we can recommend restaurants based on the restaurant list you input.</h1>
+
+	<form action="/similar" method="POST">
+		<p>
+			Please input a list of your favorite restaurants, separated by ",". E.g: "2,4,6,8"<br/><br/>
+			<input name="nodes" type="text"/> <br/>
+			<input type="submit" value="Submit"/>
+
+			P.S.: Including restaurant 3 is not recommended because it is an Israeli restaurant, and it was only connected to 4 other restaurants<br/><br/>
+		</p>
+	
+	</form>
+
+	{% if node_list == []%}
+
+	{% elif rest_list == [] %}
+	<h1>No result retrieved. Please try another combination!</h1>
+
+	{% else %}
+
+	<h1>Here is the recommendation list of the input {{node_list}}:</h1>
+
+	<table>
+		<tr>
+			<th style="text-align: center"><h3>Photo</h3></th>
+			<th style="text-align: center"><h3>Restaurants</h3></th>
+			<th style="text-align: center"><h3>Average Distance</h3></th>
+		</tr>
+
+	{% for step in rest_list %}
+		<tr>
+			<td><a href={{step[0].url}}><img src={{step[0].img_url}} alt={{step[0].Name}} width="250" height="160"></a></td>
+			<td>
+				<h3>{{step[0].id}}. <a href={{step[0].url}}>{{step[0].Name}}</a></h3>
+				Rating: {{step[0].Rating}}<br/>
+				Reviews: {{step[0].Review_num}}<br/>
+				Neighborhood: {{step[0].Neighborhood}}<br/>
+				Cuisine: 
+				{% for tag in step[0].cuisine%}
+					<span style="border:1px grey solid; background-color: rgb(254, 221, 113);">{{ tag }}</span>
+				{% endfor %}<br/>
+				Tags:
+				{% for tag in step[0].tags%}
+					<span style="border:1px grey solid; background-color: LightGreen;">{{ tag }}</span>
+				{% endfor %}
+			</td>
+			<td>
+				Distance: {{step[1]}}
+			</td>
+		</tr>
+	{% endfor %}
+
+	</table>
+	{% endif %}
+{% endblock %}

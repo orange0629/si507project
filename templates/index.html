@@ -1,0 +1,47 @@
+{% extends "base_generic.html" %}
+
+{% block filter %}
+
+{% endblock %}
+
+
+{% block content %}
+	<style>
+		table, th, td {
+		border: 1px solid black;
+		}
+	</style>
+
+	<h1>Hello! Welcome to my SI 507 Final Project. You can click the links on the left to start your Exploration.</h1>
+
+
+	<h1>Here is some restaurant that are randomly generated:</h1>
+
+	<table>
+		<tr>
+			<th style="text-align: center"><h3>Photo</h3></th>
+			<th style="text-align: center"><h3>Restaurants</h3></th>
+		</tr>
+
+	{% for step in rest_list %}
+		<tr>
+			<td><a href={{step.url}}><img src={{step.img_url}} alt={{step.Name}} width="250" height="160"></a></td>
+			<td>
+				<h3>{{step.id}}. <a href={{step.url}}>{{step.Name}}</a></h3>
+				Rating: {{step.Rating}}<br/>
+				Reviews: {{step.Review_num}}<br/>
+				Neighborhood: {{step.Neighborhood}}<br/>
+				Cuisine: 
+				{% for tag in step.cuisine%}
+					<span style="border:1px grey solid; background-color: rgb(254, 221, 113);">{{ tag }}</span>
+				{% endfor %}<br/>
+				Tags:
+				{% for tag in step.tags%}
+					<span style="border:1px grey solid; background-color: LightGreen;">{{ tag }}</span>
+				{% endfor %}
+			</td>
+		</tr>
+	{% endfor %}
+
+	</table>
+{% endblock %}

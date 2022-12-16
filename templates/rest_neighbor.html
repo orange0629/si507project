@@ -7,58 +7,51 @@
 		}
 	</style>
 
-	<h1>Hello! Here we can calculate the shortest path between 2 restaurants.</h1>
+	<h1>Hello! Here we can calculate the most similar restaurants of a given restaurant.</h1>
 
-	<form action="/path_form" method="POST">
+	<form action="/neighbor" method="POST">
 		<p>
-			What's your first restaurant id? <input name="node1" type="text"/> <br/>
-			What's your second restaurant id? <input name="node2" type="text"/> <br/>
-
+			What's your restaurant id? (0 to 970) <input name="node" type="text"/> <br/>
 			<input type="submit" value="Submit"/>
 		</p>
 	
 	</form>
 
-	<h1>Here is the shortest path from Restaurant {{init_node.id}} to {% if path != []%}{{path[-1][0].id}}{% else %}{{init_node.id}}{% endif %}:</h1>
-	<h2>
-	{{init_node.id}}
-	{% for step in path %}
-	&rarr;{{step[0].id}}
-	{% endfor %}
-	</h2>
+	{% if init_node == []%}
 
-	<h1>Detailed relationship is shown below:</h1>
+	{% else %}
 
+	<h1>Here is the list of the most similar restaurants of :</h1>
 	<table>
 		<tr>
-			<th style="text-align: center"><h3>Photo</h3></th>
-			<th style="text-align: center"><h3>Restaurants</h3></th>
-		</tr>
-		<tr>
-			<td><img src={{init_node.img_url}} alt={{init_node.Name}} width="250" height="160"> </td>
+			<td><a href={{init_node.url}}><img src={{init_node.img_url}} alt={{init_node.Name}} width="250" height="160"></a></td>
 			<td>
 				<h3>{{init_node.id}}. <a href={{init_node.url}}>{{init_node.Name}}</a></h3>
 				Rating: {{init_node.Rating}}<br/>
 				Reviews: {{init_node.Review_num}}<br/>
 				Neighborhood: {{init_node.Neighborhood}}<br/>
+				Cuisine: 
+				{% for tag in init_node.cuisine%}
+					<span style="border:1px grey solid; background-color: rgb(254, 221, 113);">{{ tag }}</span>
+				{% endfor %}<br/>
 				Tags:
 				{% for tag in init_node.tags%}
 					<span style="border:1px grey solid; background-color: LightGreen;">{{ tag }}</span>
 				{% endfor %}
 			</td>
 		</tr>
+	</table>
 
+	<h1>The most similar restaurants are shown below:</h1>
 
-	{% for step in path %}
+	<table>
 		<tr>
-			<td colspan="2" style="text-align: center">
-				<h1>Shared tags: 
-					{% for tag in step[1]%}
-					<span style="border:1px grey solid; background-color: LightGreen;">{{ tag }}</span>
-					{% endfor %}
-				</h1></td>
+			<th style="text-align: center"><h3>Photo</h3></th>
+			<th style="text-align: center"><h3>Restaurants</h3></th>
+			<th style="text-align: center"><h3>Detailed Path</h3></th>
 		</tr>
 
+	{% for step in rest_list %}
 		<tr>
 			<td><a href={{step[0].url}}><img src={{step[0].img_url}} alt={{step[0].Name}} width="250" height="160"></a></td>
 			<td>
@@ -66,14 +59,24 @@
 				Rating: {{step[0].Rating}}<br/>
 				Reviews: {{step[0].Review_num}}<br/>
 				Neighborhood: {{step[0].Neighborhood}}<br/>
+				Cuisine: 
+				{% for tag in step[0].cuisine%}
+					<span style="border:1px grey solid; background-color: rgb(254, 221, 113);">{{ tag }}</span>
+				{% endfor %}<br/>
 				Tags:
 				{% for tag in step[0].tags%}
 					<span style="border:1px grey solid; background-color: LightGreen;">{{ tag }}</span>
 				{% endfor %}
 			</td>
+			<td>
+				Distance: {{step[1]}}<br/>
+				<a href={{"/path/"}}{{init_node.id}}{{"/"}}{{step[0].id}}>Path from {{init_node.id}} to {{step[0].id}}</a>
+			</td>
 		</tr>
 	{% endfor %}
 
 	</table>
+
+	{% endif %}
 
 {% endblock %}

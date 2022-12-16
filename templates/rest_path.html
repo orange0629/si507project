@@ -9,15 +9,19 @@
 
 	<h1>Hello! Here we can calculate the shortest path between 2 restaurants.</h1>
 
-	<form action="/path_form" method="POST">
+	<form action="/path" method="POST">
 		<p>
-			What's your first restaurant id? <input name="node1" type="text"/> <br/>
-			What's your second restaurant id? <input name="node2" type="text"/> <br/>
+			What's your first restaurant id? (0 to 970) <input name="node1" type="text"/> <br/>
+			What's your second restaurant id? (0 to 970) <input name="node2" type="text"/> <br/>
 
 			<input type="submit" value="Submit"/>
 		</p>
 	
 	</form>
+
+	{% if init_node == []%}
+
+	{% else %}
 
 	<h1>Here is the shortest path from Restaurant {{init_node.id}} to {% if path != []%}{{path[-1][0].id}}{% else %}{{init_node.id}}{% endif %}:</h1>
 	<h2>
@@ -41,6 +45,10 @@
 				Rating: {{init_node.Rating}}<br/>
 				Reviews: {{init_node.Review_num}}<br/>
 				Neighborhood: {{init_node.Neighborhood}}<br/>
+				Cuisine: 
+				{% for tag in init_node.cuisine%}
+					<span style="border:1px grey solid; background-color: rgb(254, 221, 113);">{{ tag }}</span>
+				{% endfor %}<br/>
 				Tags:
 				{% for tag in init_node.tags%}
 					<span style="border:1px grey solid; background-color: LightGreen;">{{ tag }}</span>
@@ -66,6 +74,10 @@
 				Rating: {{step[0].Rating}}<br/>
 				Reviews: {{step[0].Review_num}}<br/>
 				Neighborhood: {{step[0].Neighborhood}}<br/>
+				Cuisine: 
+				{% for tag in step[0].cuisine%}
+					<span style="border:1px grey solid; background-color: rgb(254, 221, 113);">{{ tag }}</span>
+				{% endfor %}<br/>
 				Tags:
 				{% for tag in step[0].tags%}
 					<span style="border:1px grey solid; background-color: LightGreen;">{{ tag }}</span>
@@ -75,5 +87,7 @@
 	{% endfor %}
 
 	</table>
+
+	{% endif %}
 
 {% endblock %}
