@@ -1,4 +1,6 @@
-# SI507 Final Project
+# SI507 Final Project (Restaurant recommendation system based on cuisine similarity)
+
+For more detail, please look at the [Project Report](leczhang_si507_project_report.pdf).
 
 ## How to run my code:
 
@@ -29,6 +31,6 @@ The python file I used to construct this graph is Step2_Data_Structuring.ipynb. 
 
 ## Step 3: Data Presenting
 
-Shown in the report!
+Shown in the [Project Report](leczhang_si507_project_report.pdf).
 
 The code is in Step3_Demo.py, and demo_support.py provides several support functions used in Step3_Demo.py.
