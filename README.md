@@ -17,7 +17,7 @@ Step 3: flask, plotly
 
 ## Step 1: Data Caching
 
-The detailed caching process is shown in Project Report.
+The detailed caching process is shown in [Project Report](leczhang_si507_project_report.pdf).
 
 The code file is Step1_Data_Caching.ipynb
 
